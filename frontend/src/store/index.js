@@ -6,7 +6,7 @@ import pub from './modules/public'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modeuls: {
+  modules: {
     user,
     pub
   }

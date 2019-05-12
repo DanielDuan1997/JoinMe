@@ -25,7 +25,7 @@ const actions = {
       cookie => {
         commit('setName', payload.name)
         commit('setPassword', payload.password)
-        setToekn(cookie)
+        setToken(cookie)
         setUser(payload.name)
         payload.callback('success')
       },
@@ -43,4 +43,4 @@ export default {
   getters,
   mutations,
   actions
-};
+}

@@ -37,6 +37,9 @@
 </template>
 
 <script>
+
+import {mapState, mapActions} from 'vuex'
+
 export default {
   name: 'Login',
   data () {
@@ -49,11 +52,35 @@ export default {
         password: ''
       },
       usernameRules: [
-        { validate: (val) => !!val, message: '用户名为空' }
+        { validate: val => !!val, message: '用户名为空' }
       ],
       passwordRules: [
-        { validate: (val) => val.length >= 6, message: '密码长度需大于5' }
+        { validate: val => val.length >= 6, message: '密码长度应大于5' }
       ]
+    }
+  },
+  computed: mapState({
+    user: state => state.user
+  }),
+  methods: {
+    ...mapActions('user', ['loginUser']),
+    submit () {
+      this.$refs.form.validate().then(result =>{
+        if (result === true) {
+          this.loginUser({ name: this.form.username, password: this.form.password, callback: this.alertLoginResult })
+        }
+      })
+    },
+    alertLoginResult (status) {
+      if (status === 'success')
+        this.$router.push('/homepage')
+      else {
+        this.dialogText = status
+        this.showDialog = true
+      }
+    },
+    toSignUp () {
+      this.$router.push('/signup')
     }
   }
 };
