@@ -19,6 +19,8 @@ const mutations = {
 
 const actions = {
   loginUser({commit}, payload) {
+    let md5 = require("md5")
+    payload.password = md5(payload.name + payload.password)
     apiUser.login(
       payload.name,
       payload.password,

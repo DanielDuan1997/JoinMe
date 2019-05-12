@@ -4,8 +4,8 @@
       <mu-appbar style="width: 100%" color="primary">
       </mu-appbar>
     </div>
-    <div class="xy-center">
-      <logo></logo>
+    <logo class="margin-top-40"></logo>
+    <div>
       <mu-container class="margin-top-40">
         <mu-form ref="form" :model="form" class="mu-form">
           <mu-form-item label="用户名" prop="username" :rules="usernameRules">
@@ -24,8 +24,7 @@
         </mu-form>
         <span>没有账号? &nbsp;&nbsp;|</span>
         <mu-button flat color="primary" @click="toSignUp">
-            注册
-            <mu-icon value=":iconfont icon-right-arrow"></mu-icon>
+            注册&nbsp;<mu-icon value=":iconfont icon-right-arrow"></mu-icon>
         </mu-button>
         <mu-dialog title="Fail" width="360" :open.sync="showDialog">
           {{dialogText}}
@@ -73,14 +72,14 @@ export default {
     },
     alertLoginResult (status) {
       if (status === 'success')
-        this.$router.push('/homepage')
+        this.$router.replace('/homepage')
       else {
         this.dialogText = status
         this.showDialog = true
       }
     },
     toSignUp () {
-      this.$router.push('/signup')
+      this.$router.replace('/signup')
     }
   }
 };
@@ -97,14 +96,6 @@ export default {
 .header {
   height: 60px;
   text-align: center;
-}
-.xy-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  max-width: 540px;
-  transform: translate(-50%, -50%);
 }
 .margin-top-40 {
   margin-top: 40px;
