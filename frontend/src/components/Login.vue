@@ -37,7 +37,7 @@
 
 <script>
 
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
   name: 'Login',
@@ -58,9 +58,6 @@ export default {
       ]
     }
   },
-  computed: mapState({
-    user: state => state.user
-  }),
   methods: {
     ...mapActions('user', ['loginUser']),
     submit () {
@@ -70,11 +67,12 @@ export default {
         }
       })
     },
-    alertLoginResult (status) {
-      if (status === 'success')
-        this.$router.replace('/homepage')
+    alertLoginResult (text) {
+      if (text === 'success') {
+        this.$router.replace('/')
+      }
       else {
-        this.dialogText = status
+        this.dialogText = text
         this.showDialog = true
       }
     },

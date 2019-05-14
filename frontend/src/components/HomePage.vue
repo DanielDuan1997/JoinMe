@@ -6,12 +6,12 @@
           <mu-icon value=":iconfont icon-menu"></mu-icon>
         </mu-button>
         JoinMe
-        <mu-button flat slot="right"><span style="font-size:10px">LOGIN</span></mu-button>
+        <mu-button flat slot="right" @click="logOut(toLogin)"><span style="font-size:10px">LOGOUT</span></mu-button>
       </mu-appbar>
     </div>
 
     <div class="center" v-show="shift === 'car'">
-      拼车嘛？ 
+      拼车嘛？
     </div>
     <div class="center" v-show="shift === 'homepage'">
       不拼！
@@ -27,11 +27,20 @@
 </template>
 
 <script>
+
+import {mapState, mapActions, mapGetters} from 'vuex'
+
 export default {
   name: 'HomePage',
   data () {
     return {
       shift: 'car'
+    }
+  },
+  methods: {
+    ...mapActions('user', ['logOut']),
+    toLogin () {
+      this.$router.replace('/toLogin')
     }
   }
 };

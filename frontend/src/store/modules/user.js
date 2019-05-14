@@ -1,41 +1,43 @@
 import apiUser from '../../api/user'
-import { setToken, setUser, removeToken } from '@/auth'
+import { setToken, setUser, removeToken, removeUser, getUser, getToken } from '@/auth'
 
-const state = {
-  name: null,
-  password: null
-}
+const state = {}
 
 const getters = {}
 
-const mutations = {
-  setName (state, name) {
-    state.name = name
-  },
-  setPassword (state, password) {
-    state.password = password
-  }
-}
+const mutations = {}
 
 const actions = {
   loginUser({commit}, payload) {
-    let md5 = require("md5")
+    let md5 = require('md5')
     payload.password = md5(payload.name + payload.password)
     apiUser.login(
       payload.name,
       payload.password,
       cookie => {
-        commit('setName', payload.name)
-        commit('setPassword', payload.password)
         setToken(cookie)
         setUser(payload.name)
         payload.callback('success')
       },
-      str => {
-        console.log(str)
-        payload.callback(str)
-      }
+      str => payload.callback(str)
     )
+  },
+  signUp({commit}, payload) {
+    let md5 = require('md5')
+    payload.password = md5(payload.name + payload.password)
+    apiUser.signUp(
+      payload.name,
+      payload.password,
+      payload.callback
+    )
+  },
+  logOut({commit}, callback) {
+    let user = getUser()
+    let cookie = getToken()
+    removeUser()
+    removeToken()
+    callback()
+    apiUser.logOut(user, cookie)
   }
 }
 

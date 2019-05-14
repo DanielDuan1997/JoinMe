@@ -72,9 +72,9 @@ export default {
   methods: {
     ...mapActions('user', ['signUp']),
     submit () {
-      this.$refs.form.validate().then(result =>{
+      this.$refs.form.validate().then(result => {
         if (result === true)
-          this.signUp({ name: this.validateForm.username, pwd: this.validateForm.password, callback: this.alertSignUpResult })
+          this.signUp({ name: this.validateForm.username, password: this.validateForm.password, callback: this.alertSignUpResult })
       })
     },
     clear () {
@@ -85,11 +85,12 @@ export default {
         repeatPassword: ''
       }
     },
-    alertSignUpResult (status) {
-      if (status === 'success')
+    alertSignUpResult (text) {
+      console.log(text)
+      if (text === 'success')
         this.$router.replace('/')
       else {
-        this.dialogText = status
+        this.dialogText = text
         this.showDialog = true
       }
     },
