@@ -6,21 +6,23 @@
           <mu-icon value=":iconfont icon-menu"></mu-icon>
         </mu-button>
         JoinMe
-        <mu-button flat slot="right" @click="logOut(toLogin)"><span style="font-size:10px">LOGOUT</span></mu-button>
+        <mu-button icon slot="right" @click="logOut(toLogin)">
+          <mu-icon value=":iconfont icon-leave" size="20"></mu-icon>
+        </mu-button>
       </mu-appbar>
     </div>
 
-    <div class="center" v-show="shift === 'car'">
-      拼车嘛？
+    <div v-show="shift === 'car'">
+      <carpool></carpool>
     </div>
-    <div class="center" v-show="shift === 'homepage'">
-      不拼！
+    <div v-show="shift === 'homepage'">
+      <individual></individual>
     </div>
 
     <div class="nav">
       <mu-bottom-nav :value.sync="shift" color="primary">
         <mu-bottom-nav-item value="car" title="拼车" icon=":iconfont icon-car"></mu-bottom-nav-item>
-        <mu-bottom-nav-item value="homepage" title="主页" icon=":iconfont icon-homepage"></mu-bottom-nav-item>
+        <mu-bottom-nav-item value="homepage" title="个人" icon=":iconfont icon-individual"></mu-bottom-nav-item>
       </mu-bottom-nav>
     </div>
   </div>
@@ -28,7 +30,7 @@
 
 <script>
 
-import {mapState, mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'HomePage',
@@ -73,5 +75,8 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+.margin-top-20 {
+  margin-top: 20px;
 }
 </style>

@@ -31,7 +31,7 @@
         </mu-button>
         <mu-dialog title="Fail" width="360" :open.sync="showDialog">
           {{dialogText}}
-          <mu-button slot="actions" flat color="primary" @click="showDialog=false">Close</mu-button>
+          <mu-button slot="actions" flat color="primary" @click="showDialog=false">关闭</mu-button>
         </mu-dialog>
       </mu-container>
     </div>
@@ -88,6 +88,7 @@ export default {
     alertSignUpResult (text) {
       console.log(text)
       if (text === 'success')
+
         this.$router.replace('/')
       else {
         this.dialogText = text

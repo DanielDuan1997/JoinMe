@@ -14,6 +14,8 @@ sql = """CREATE TABLE `User` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` char(20) NOT NULL,
   `password` char(32) NOT NULL,
+  `total_rate` int(10) DEFAULT 10,
+  `total_num` int(10) DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
 cursor.execute(sql)

@@ -10,6 +10,8 @@ import 'muse-ui/dist/muse-ui.css'
 import theme from 'muse-ui/lib/theme'
 
 import Logo from '@/components/Logo'
+import Carpool from '@/components/Carpool'
+import Individual from '@/components/Individual'
 
 import '@/permission'
 
@@ -26,6 +28,8 @@ Vue.config.productionTip = false
 Vue.use(MuseUI)
 
 Vue.component('logo', Logo)
+Vue.component('carpool', Carpool)
+Vue.component('individual', Individual)
 
 /* eslint-disable no-new */
 new Vue({

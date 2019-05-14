@@ -1,5 +1,6 @@
 import apiUser from '../../api/user'
-import { setToken, setUser, removeToken, removeUser, getUser, getToken } from '@/auth'
+import {setToken, setUser, removeToken, removeUser, getUser, getToken} from '@/auth'
+import {setLocal} from '@/storage'
 
 const state = {}
 
@@ -14,9 +15,11 @@ const actions = {
     apiUser.login(
       payload.name,
       payload.password,
-      cookie => {
-        setToken(cookie)
+      response => {
+        response = JSON.parse(response)
+        setLocal({"rate": response.rate})
         setUser(payload.name)
+        setToken(response.token)
         payload.callback('success')
       },
       str => payload.callback(str)
@@ -36,8 +39,8 @@ const actions = {
     let cookie = getToken()
     removeUser()
     removeToken()
-    callback()
     apiUser.logOut(user, cookie)
+    callback()
   }
 }
 

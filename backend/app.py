@@ -1,4 +1,4 @@
-from flask import Flask, session, request
+from flask import Flask, session, request, jsonify
 from flask_cors import CORS
 import os
 from datetime import timedelta
@@ -35,8 +35,9 @@ def user_login():
         token = str(uuid.uuid4())
         session[name] = token
         session.permanent = True
-        ret = (token, 200)
+        ret = (jsonify({'token': token, 'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
     cursor.close()
+    print(ret)
     return ret
 
 @app.route('/signup', methods=["POST"])
