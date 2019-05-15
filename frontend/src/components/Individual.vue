@@ -22,6 +22,24 @@
         </span>
       </div>
     </mu-row>
+    <mu-list class="margin-top-20">
+<!--       <mu-list-item button class="list-item">
+        <mu-list-item-action>
+          <mu-icon value=":iconfont icon-applying" color="green" size="20"></mu-icon>
+        </mu-list-item-action>
+        <mu-list-item-title>申请中</mu-list-item-title>
+        <mu-list-item-action>
+          <mu-icon value=":iconfont icon-right-arrow"></mu-icon>
+        </mu-list-item-action>
+      </mu-list-item> -->
+      <mylist icon=":iconfont icon-applying" content="即将出行" color="green"></mylist>
+      <div class="divider"></div>
+      <mylist icon=":iconfont icon-history" content="历史清单" color="#2196f3"></mylist>
+      <div class="divider"></div>
+      <mylist icon=":iconfont icon-notice" content="系统消息" color="#00bcd4"></mylist>
+      <div class="divider-large"></div>
+      <mylist icon=":iconfont icon-setting" content="个人设置" color="#607d8b"></mylist>
+    </mu-list>
   </mu-container>
 </template>
 
@@ -61,5 +79,11 @@ export default {
 }
 .margin-top-20 {
   margin-top: 20px;
+}
+.divider {
+  height: 5px;
+}
+.divider-large {
+  height: 30px;
 }
 </style>

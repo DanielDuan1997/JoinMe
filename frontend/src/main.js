@@ -12,6 +12,7 @@ import theme from 'muse-ui/lib/theme'
 import Logo from '@/components/Logo'
 import Carpool from '@/components/Carpool'
 import Individual from '@/components/Individual'
+import MyList from '@/components/MyList'
 
 import '@/permission'
 
@@ -30,6 +31,7 @@ Vue.use(MuseUI)
 Vue.component('logo', Logo)
 Vue.component('carpool', Carpool)
 Vue.component('individual', Individual)
+Vue.component('mylist', MyList)
 
 /* eslint-disable no-new */
 new Vue({
