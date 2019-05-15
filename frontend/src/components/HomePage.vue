@@ -12,17 +12,17 @@
       </mu-appbar>
     </div>
 
-    <div v-show="shift === 'car'">
+    <div v-if="shift === 'car'">
       <carpool></carpool>
     </div>
-    <div v-show="shift === 'homepage'">
+    <div v-else-if="shift === 'individual'">
       <individual></individual>
     </div>
 
     <div class="nav">
       <mu-bottom-nav :value.sync="shift" color="primary">
         <mu-bottom-nav-item value="car" title="拼车" icon=":iconfont icon-car"></mu-bottom-nav-item>
-        <mu-bottom-nav-item value="homepage" title="个人" icon=":iconfont icon-individual"></mu-bottom-nav-item>
+        <mu-bottom-nav-item value="individual" title="个人" icon=":iconfont icon-individual"></mu-bottom-nav-item>
       </mu-bottom-nav>
     </div>
   </div>
