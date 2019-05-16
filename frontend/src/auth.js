@@ -8,11 +8,11 @@ export function getToken () {
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  Cookies.set(TokenKey, token)
 }
 
 export function removeToken () {
-  return Cookies.remove(TokenKey)
+  Cookies.remove(TokenKey)
 }
 
 export function getUser () {
@@ -20,9 +20,14 @@ export function getUser () {
 }
 
 export function setUser (user) {
-  return Cookies.set(UserKey, user)
+  Cookies.set(UserKey, user)
 }
 
 export function removeUser () {
-  return Cookies.remove(UserKey)
+  Cookies.remove(UserKey)
+}
+
+export function removeAll () {
+  removeToken()
+  removeUser()
 }

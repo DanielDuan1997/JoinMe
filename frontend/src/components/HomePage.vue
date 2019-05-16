@@ -1,22 +1,12 @@
 <template>
   <div class="full-screen">
-    <div class="header">
-      <mu-appbar style="width: 100%" color="primary">
-        <mu-button icon slot="left">
-          <mu-icon value=":iconfont icon-menu"></mu-icon>
-        </mu-button>
-        JoinMe
-        <mu-button icon slot="right" @click="logOut(toLogin)">
-          <mu-icon value=":iconfont icon-leave" size="20"></mu-icon>
-        </mu-button>
-      </mu-appbar>
-    </div>
+    <myheader left-icon=":iconfont icon-menu" title="JoinMe" leave></myheader>
 
     <div v-if="shift === 'car'">
-      <carpool></carpool>
+      <mycarpool></mycarpool>
     </div>
     <div v-else-if="shift === 'individual'">
-      <individual></individual>
+      <myindividual></myindividual>
     </div>
 
     <div class="nav">
@@ -29,20 +19,11 @@
 </template>
 
 <script>
-
-import {mapActions} from 'vuex'
-
 export default {
   name: 'HomePage',
   data () {
     return {
       shift: 'car'
-    }
-  },
-  methods: {
-    ...mapActions('user', ['logOut']),
-    toLogin () {
-      this.$router.replace('/toLogin')
     }
   }
 };
@@ -55,10 +36,6 @@ export default {
   position: 100%;
   top: 0;
   bottom: 0;
-}
-.header {
-  height: 60px;
-  text-align: center;
 }
 .center {
   position: absolute;

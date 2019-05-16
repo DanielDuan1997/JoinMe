@@ -7,3 +7,7 @@ export function setLocal (payload) {
 export function getRate () {
   return storage["rate"]
 }
+
+export function clearStorage () {
+  storage.clear()
+}

@@ -1,6 +1,6 @@
 import apiUser from '../../api/user'
 import {setToken, setUser, removeToken, removeUser, getUser, getToken} from '@/auth'
-import {setLocal} from '@/storage'
+import {setLocal, clearStorage} from '@/storage'
 
 const state = {}
 
@@ -39,6 +39,7 @@ const actions = {
     let cookie = getToken()
     removeUser()
     removeToken()
+    clearStorage()
     apiUser.logOut(user, cookie)
     callback()
   }

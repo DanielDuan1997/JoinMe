@@ -1,5 +1,5 @@
 <template>
-  <mu-list-item button class="list-item">
+  <mu-list-item button class="list-item" @click="$router.push(to)">
     <mu-list-item-action style="min-width: 48px">
       <div>
         <mu-icon :value="icon" :color="color" size="25"></mu-icon>
@@ -14,11 +14,12 @@
 
 <script>
 export default {
-  name: 'MyList',
+  name: 'mylist',
   props: {
     icon: String,
     color: String,
-    content: String
+    content: String,
+    to: String
   }
 };
 </script>

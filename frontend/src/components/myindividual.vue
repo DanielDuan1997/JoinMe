@@ -1,6 +1,6 @@
 <template>
   <mu-container>
-    <mu-row justify-content="center" class="margin-top-20">
+    <mu-row justify-content="center">
       <mu-avatar :size="80">
         <img src="static/img/head.jpeg">
       </mu-avatar>
@@ -38,7 +38,7 @@ import {getUser} from '@/auth'
 import {getRate} from '@/storage'
 
 export default {
-  name: 'Individual',
+  name: 'individual',
   data () {
     return {
       name: getUser(),

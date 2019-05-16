@@ -5,7 +5,7 @@
       </mu-appbar>
     </div>
     <div class="margin-top-40">
-      <logo></logo>
+      <mylogo></mylogo>
     </div>
     <div>
       <mu-container class="margin-top-40">

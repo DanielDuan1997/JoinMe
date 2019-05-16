@@ -4,7 +4,7 @@
       <mu-appbar style="width: 100%" color="primary">
       </mu-appbar>
     </div>
-    <logo class="margin-top-40"></logo>
+    <mylogo class="margin-top-40"></mylogo>
     <div>
       <mu-container class="margin-top-40">
         <mu-form ref="form" :model="form" class="mu-form">

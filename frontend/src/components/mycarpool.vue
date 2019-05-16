@@ -1,8 +1,8 @@
 <template>
   <mu-container>
-    <logo class="margin-top-20"></logo>
+    <mylogo></mylogo>
     <mu-list class="margin-top-20">
-      <mylist icon=":iconfont icon-start" content="发起拼单" color="#03a9f4"></mylist>
+      <mylist icon=":iconfont icon-start" content="发起拼单" color="#03a9f4" to="/initiateorder"></mylist>
       <div class="divider-large"></div>
       <mylist icon=":iconfont icon-search" content="可加拼单" color="#673ab7"></mylist>
       <div class="divider"></div>
@@ -15,15 +15,7 @@
 
 <script>
 export default {
-  name: "Carpool",
-  data () {
-    return {
-      
-    }
-  },
-  methods: {
-
-  }
+  name: "mycarpool"
 };
 </script>
 

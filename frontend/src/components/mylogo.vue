@@ -13,7 +13,7 @@
 import anime from 'animejs'
 
 export default {
-  name: 'Logo',
+  name: 'mylogo',
   mounted: function () {
     this.$nextTick(function () {
       anime({
