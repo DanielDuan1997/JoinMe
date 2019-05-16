@@ -86,9 +86,7 @@ export default {
       }
     },
     alertSignUpResult (text) {
-      console.log(text)
       if (text === 'success')
-
         this.$router.replace('/')
       else {
         this.dialogText = text

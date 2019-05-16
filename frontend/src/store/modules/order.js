@@ -1,5 +1,5 @@
-//import apiOrder from '@/api/order'
-import {getUser} from '@/auth'
+import apiOrder from '@/api/order'
+import {getUser, getToken} from '@/auth'
 
 const state = {}
 
@@ -9,9 +9,14 @@ const mutations = {}
 
 const actions = {
   startOrder ({commit}, payload) {
-    setTimeout(() => {
-      payload.callback(500)
-    }, 2000)
+    apiOrder.start(
+      getUser(),
+      getToken(),
+      payload.from,
+      payload.to,
+      payload.datetime,
+      payload.callback
+    )
   }
 }
 

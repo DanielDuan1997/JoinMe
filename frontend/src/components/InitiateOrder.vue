@@ -178,6 +178,25 @@ export default {
         }
         return false
       }
+      let year = this.startDate.getFullYear()
+      let month = this.startDate.getMonth()
+      let date = this.startDate.getDate()
+      let hour = this.startTime.getHours()
+      let minute = this.startTime.getMinutes()
+      let dateTime = new Date()
+      dateTime.setFullYear(year, month, date)
+      dateTime.setHours(hour, minute, 0)
+      let curDateTime = new Date()
+      if (dateTime < curDateTime) {
+        this.notice = {
+          show: true,
+          title: '错误',
+          text: '出发时间比当前时间早',
+          closeColor: 'warning',
+          callback: undefined
+        }
+        return false
+      }
       return true
     },
     submit () {
@@ -186,12 +205,21 @@ export default {
       this.startOrder({
         from: this.from[0],
         to: this.to[0],
+        datetime: this.myDate + ' ' + this.myTime,
         callback: this.callback
       })
     },
     callback (status) {
       this.waiting = false
-      if (status === 401) {
+      if (status === 200) {
+        this.notice = {
+          show: true,
+          title: "成功",
+          text: "将回到首页",
+          closeColor: "primary",
+          to: "/"
+        }
+      } else if (status === 401) {
         this.notice = {
           show: true,
           title: "错误",
@@ -207,19 +235,11 @@ export default {
           closeColor: "warning",
           to: undefined
         }
-      } else if (status === 200) {
-        this.notice = {
-          show: true,
-          title: "成功",
-          text: "将回到首页",
-          closeColor: "primary",
-          to: "/"
-        }
       } else {
         this.notice = {
           show: true,
           title: "错误",
-          text: "未知错误",
+          text: "无法连接服务器",
           closeColor: "warning",
           to: undefined
         }
@@ -228,7 +248,7 @@ export default {
     closeDialog () {
       this.notice.show = false
       if (this.notice.to !== undefined) {
-        if (this.notice.to === 'login') {
+        if (this.notice.to === '/login') {
           removeAll()
           clearStorage()
         }
