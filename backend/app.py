@@ -4,7 +4,6 @@ from flask_cors import CORS
 import os
 from datetime import timedelta
 import pymysql
-import uuid
 from datetime import datetime
 
 app = Flask(__name__)
@@ -16,25 +15,19 @@ db = pymysql.connect("localhost", "root", "niabbf", "JoinMe")
 
 @app.after_request
 def after_request(response):
-    # response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Origin'] = request.headers["Origin"]
     response.headers['Access-Control-Allow-Methods'] = 'POST'
     response.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
-    return response
-
-@app.route('/try', methods=["POST"])
-def have_a_try():
-    post_data = request.form.to_dict()
-    response = make_response(session.get(post_data.get("name")))
-    print(type(response))
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 @app.route('/login', methods=["POST"])
 def user_login():
     post_data = request.form.to_dict()
-    name = post_data.get("name")
+    user = post_data.get("user")
     password = post_data.get("password")
     cursor = db.cursor()
-    cursor.execute(f"SELECT * FROM `User` WHERE username = '{name}';")
+    cursor.execute(f"SELECT * FROM `User` WHERE username = '{user}';")
     rec = cursor.fetchone()
     cursor.close()
     if rec is None:
@@ -42,27 +35,26 @@ def user_login():
     elif rec[2] != password:
         response = make_response("password wrong", 401)
     else:
-        token = str(uuid.uuid4())
-        session[name] = token
+        session["last_login"] = datetime.now()
+        session["user"] = user
         session.permanent = True
-        response = make_response(jsonify({'token': token, 'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
+        response = make_response(jsonify({'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
     cursor.close()
-    print(type(response))
     return response
 
 @app.route('/signup', methods=["POST"])
 def user_signup():
     post_data = request.form.to_dict()
-    name = post_data.get("name")
+    user = post_data.get("user")
     password = post_data.get("password")
     cursor = db.cursor()
-    cursor.execute(f"SELECT * FROM `User` WHERE username = '{name}';")
+    cursor.execute(f"SELECT * FROM `User` WHERE username = '{user}';")
     rec = cursor.fetchone()
     if rec:
         response = make_response("username exists", 401)
     else:
         try:
-            cursor.execute(f"INSERT INTO `User`(`username`, `password`) VALUES ('{name}', '{password}');")
+            cursor.execute(f"INSERT INTO `User`(`username`, `password`) VALUES ('{user}', '{password}');")
             db.commit()
             response = make_response("success", 200)
         except Exception:
@@ -71,32 +63,24 @@ def user_signup():
     cursor.close()
     return response
 
-def validate(user, cookie):
-    return session.get(user) == cookie
-
 @app.route('/logout', methods=["POST"])
 def user_logout():
     post_data = request.form.to_dict()
-    name = post_data.get("name")
-    cookie = post_data.get("cookie")
-    print(session)
-    if validate(name, cookie):
-        session.pop(name)
-    return "success", 200
+    user = post_data.get("user")
+    if session.get("user"):
+        session.clear()
+    return make_response("success", 200)
 
 @app.route('/startorder', methods=["POST"])
 def start_order():
-    print(session)
     post_data = request.form.to_dict()
     user = post_data.get("user")
-    cookie = post_data.get("cookie")
-    if not validate(user, cookie):
-        return make_response("User Expiration", 401)
     place_from = post_data.get("from")
     place_to = post_data.get("to")
     start_dt = datetime.strptime(post_data.get("datetime"), "%Y-%m-%d %H:%M")
     start_dt = start_dt.strftime("%Y%m%d%H%M%S")
-    sql = f"INSERT INTO `Task`(`initiator`, `num_connect`, `from`, `to`, `starttime`) VALUES ('{user}', 1, '{place_from}', '{place_to}', '{start_dt}')"
+    sql = f"INSERT INTO `Task`(`initiator`, `num_connect`, `from`, `to`, `starttime`) VALUES ({session["id"]}, 1, '{place_from}', '{place_to}', {start_dt});"
+    print(sql)
     cursor = db.cursor()
     try:
         cursor.execute(sql)

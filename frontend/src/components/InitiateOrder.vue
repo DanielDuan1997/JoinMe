@@ -91,8 +91,8 @@
 </template>
 
 <script>
+import {removeAll} from '@/auth'
 import {mapActions} from 'vuex'
-import {removeAll} from "@/auth"
 import {clearStorage} from "@/storage"
 
 export default {
@@ -249,7 +249,6 @@ export default {
       this.notice.show = false
       if (this.notice.to !== undefined) {
         if (this.notice.to === '/login') {
-          removeAll()
           clearStorage()
         }
         this.$router.replace(this.notice.to)

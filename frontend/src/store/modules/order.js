@@ -1,5 +1,5 @@
 import apiOrder from '@/api/order'
-import {getUser, getToken} from '@/auth'
+import {getUser} from '@/auth'
 
 const state = {}
 
@@ -11,7 +11,6 @@ const actions = {
   startOrder ({commit}, payload) {
     apiOrder.start(
       getUser(),
-      getToken(),
       payload.from,
       payload.to,
       payload.datetime,

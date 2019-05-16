@@ -74,7 +74,7 @@ export default {
     submit () {
       this.$refs.form.validate().then(result => {
         if (result === true)
-          this.signUp({ name: this.validateForm.username, password: this.validateForm.password, callback: this.alertSignUpResult })
+          this.signUp({ user: this.validateForm.username, password: this.validateForm.password, callback: this.alertSignUpResult })
       })
     },
     clear () {

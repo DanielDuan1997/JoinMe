@@ -63,14 +63,13 @@ export default {
     submit () {
       this.$refs.form.validate().then(result =>{
         if (result === true) {
-          this.loginUser({ name: this.form.username, password: this.form.password, callback: this.alertLoginResult })
+          this.loginUser({ user: this.form.username, password: this.form.password, callback: this.alertLoginResult })
         }
       })
     },
     alertLoginResult (text) {
-      if (text === 'success') {
+      if (text === 'success')
         this.$router.replace('/')
-      }
       else {
         this.dialogText = text
         this.showDialog = true

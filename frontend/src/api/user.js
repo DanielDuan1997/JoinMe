@@ -2,12 +2,15 @@ const SERVER_ADDRESS = 'http://0.0.0.0:5000'
 //'http://118.25.153.8:5000'
 
 export default {
-  login (name, password, cbSucceed, cbFail) {
+  login (user, password, cbSucceed, cbFail) {
     let formData = new FormData()
-    formData.append('name', name)
+    formData.append('user', user)
     formData.append('password', password)
     let opts = {
+      heads: {'content-type' : 'application/x-www-form-urlencoded'},
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       body: formData
     }
     fetch(SERVER_ADDRESS + '/login', opts)
@@ -22,12 +25,15 @@ export default {
       })
       .catch(response => cbFail("无法连接服务器"))
   },
-  signUp (name, password, callBack) {
+  signUp (user, password, callBack) {
     let formData = new FormData()
-    formData.append('name', name)
+    formData.append('user', user)
     formData.append('password', password)
     let opts = {
+      heads: {'content-type' : 'application/x-www-form-urlencoded'},
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       body: formData
     }
     fetch(SERVER_ADDRESS + '/signup', opts)
@@ -41,12 +47,14 @@ export default {
         callBack("无法连接服务器")
       })
   },
-  logOut (name, cookie) {
+  logOut (user) {
     let formData = new FormData()
-    formData.append('name', name)
-    formData.append('cookie', cookie)
+    formData.append('user', user)
     let opts = {
+      heads: {'content-type' : 'application/x-www-form-urlencoded'},
       method: 'POST',
+      mode: 'cors',
+      credentials: 'include',
       body: formData
     }
     fetch(SERVER_ADDRESS + '/logout', opts)
