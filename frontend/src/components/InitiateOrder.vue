@@ -6,7 +6,7 @@
       <mu-paper :z-depth="1" class="paper">
         <mu-list style="text-align: left; padding: 0">
           <mu-list-item>
-            <mu-row @click="showFrom" class="full-width">
+            <mu-row @click="showFrom=true" class="full-width">
               <mu-col span="2">
                 <mu-icon value=":iconfont icon-point" size="20" color="green"></mu-icon>
               </mu-col>
@@ -14,13 +14,13 @@
                 出发地
               </mu-col>
               <mu-col span="6" class="text">
-                {{from.address[0]}}
+                {{from[0]}}
               </mu-col>
             </mu-row>
           </mu-list-item>
           <mu-divider></mu-divider>
           <mu-list-item>
-            <mu-row @click="showTo" class="full-width">
+            <mu-row @click="showTo=true" class="full-width">
               <mu-col span="2">
                 <mu-icon value=":iconfont icon-point" size="20" color="orange"></mu-icon>
               </mu-col>
@@ -28,13 +28,13 @@
                 目的地
               </mu-col>
               <mu-col span="6" class="text">
-                {{to.address[0]}}
+                {{to[0]}}
               </mu-col>
             </mu-row>
           </mu-list-item>
           <mu-divider></mu-divider>
           <mu-list-item>
-            <mu-row @click="showStartDate" class="full-width">
+            <mu-row @click="showDate=true" class="full-width">
               <mu-col span="2">
                 <mu-icon value=":iconfont icon-point" size="20" color="blue"></mu-icon>
               </mu-col>
@@ -48,7 +48,7 @@
           </mu-list-item>
           <mu-divider></mu-divider>
           <mu-list-item>
-            <mu-row @click="showStartTime" class="full-width">
+            <mu-row @click="showTime=true" class="full-width">
               <mu-col span="2">
                 <mu-icon value=":iconfont icon-point" size="20" color="red"></mu-icon>
               </mu-col>
@@ -62,23 +62,25 @@
           </mu-list-item>
         </mu-list>
       </mu-paper>
+
       <div style="margin-top: 2%">
         <mu-button color="primary" style="width: 80%; font-weight: bold; font-size: 17px" @click="submit">
           发起拼单
         </mu-button>
       </div>
-      <div v-if="from.showAddress" class="picker" v-on:click="clickFrom">
-        <mu-slide-picker :slots="place" :visible-item-count="5" @change="fromAddressChange" :values="from.address" class="picker-content-1"></mu-slide-picker>
+      <div v-if="showFrom" class="picker" v-on:click="clickFrom">
+        <mu-slide-picker :slots="place" :visible-item-count="5" @change="(value) => {from=[value]}" :values="from" class="picker-content-1"></mu-slide-picker>
       </div>
-      <div v-if="to.showAddress" class="picker" v-on:click="clickTo">
-        <mu-slide-picker :slots="place" :visible-item-count="5" @change="toAddressChange" :values="to.address" class="picker-content-1"></mu-slide-picker>
+      <div v-if="showTo" class="picker" v-on:click="clickTo">
+        <mu-slide-picker :slots="place" :visible-item-count="5" @change="(value) => {to=[value]}" :values="to" class="picker-content-1"></mu-slide-picker>
       </div>
-      <div v-if="date.show" class="picker" v-on:click="clickDate">
-        <mu-date-picker color="primary" :date.sync="date.date" class="picker-content-2"></mu-date-picker>
+      <div v-if="showDate" class="picker" v-on:click="clickDate">
+        <mu-date-picker color="primary" :date.sync="startDate" class="picker-content-2"></mu-date-picker>
       </div>
-      <div v-if="time.show" class="picker" v-on:click="clickTime">
-        <mu-time-picker color="primary" :time.sync="time.time" format="24hr" view-type="list" class="picker-content-2"></mu-time-picker>
+      <div v-if="showTime" class="picker" v-on:click="clickTime">
+        <mu-time-picker color="primary" :time.sync="startTime" format="24hr" view-type="list" class="picker-content-2"></mu-time-picker>
       </div>
+
       <mywaiting v-if="waiting"></mywaiting>
       <mu-dialog :open.sync="notice.show" :title="notice.title" width="360">
         {{notice.text}}
@@ -89,7 +91,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import {mapActions} from 'vuex'
 import {removeAll} from "@/auth"
 import {clearStorage} from "@/storage"
 
@@ -102,46 +104,38 @@ export default {
         textAlign: "center",
         values: ["张江", "邯郸", "枫林", "江湾"]
       }],
-      from: {
-        showAddress: false,
-        address: ["张江"]
-      },
-      to: {
-        showAddress: false,
-        address: ["邯郸"]
-      },
-      date: {
-        show: false,
-        date: undefined
-      },
-      time: {
-        show: false,
-        time: undefined
-      },
+      from: ['张江'],
+      to: ['邯郸'],
+      startDate: undefined,
+      startTime: undefined,
+      showFrom: false,
+      showTo: false,
+      showDate: false,
+      showTime: false,
       waiting: false,
       notice: {
         show: false,
         title: "",
         text: "",
         closeColor: "",
-        callback: undefined
+        to: undefined,
       }
     }
   },
   computed: {
     myDate: function() {
-      if (this.date.date !== undefined) {
-        let year = this.date.date.getFullYear()
-        let month = this.date.date.getMonth() + 1
-        let date = this.date.date.getDate()
+      if (this.startDate !== undefined) {
+        let year = this.startDate.getFullYear()
+        let month = this.startDate.getMonth() + 1
+        let date = this.startDate.getDate()
         return year + '-' + month + '-' + date
       }
       return "请选择日期"
     },
     myTime: function() {
-      if (this.time.time !== undefined) {
-        let hour = this.time.time.getHours()
-        let minute = this.time.time.getMinutes()
+      if (this.startTime !== undefined) {
+        let hour = this.startTime.getHours()
+        let minute = this.startTime.getMinutes()
         return this.pad(hour) + ':' + this.pad(minute)
       }
       return "请选择时间"
@@ -150,47 +144,11 @@ export default {
   methods: {
     ...mapActions('order', ['startOrder']),
     pad (num) {
-      if (num < 10)
-        return '0' + num
-      else
-        return num
-    },
-    showFrom () {
-      this.from.showAddress = true
-    },
-    fromAddressChange (value) {
-      this.from.address = [value]
-    },
-    clickFrom (event) {
-      if (event.target.className.toLowerCase() === "picker")
-        this.from.showAddress = false
-    },
-    showTo () {
-      this.to.showAddress = true
-    },
-    toAddressChange (value) {
-      this.to.address = [value]
-    },
-    clickTo (event) {
-      if (event.target.className.toLowerCase() === "picker")
-        this.to.showAddress = false
-    },
-    showStartDate () {
-      this.date.show = true
-    },
-    clickDate () {
-      if (event.target.className.toLowerCase() === "picker")
-        this.date.show = false
-    },
-    showStartTime () {
-      this.time.show = true
-    },
-    clickTime () {
-      if (event.target.className.toLowerCase() === "picker")
-        this.time.show = false
+      if (num < 10) return '0' + num
+      else return num
     },
     check () {
-      if (this.from.address[0] === this.to.address[0]) {
+      if (this.from[0] === this.to[0]) {
         this.notice = {
           show: true,
           title: "错误",
@@ -200,7 +158,7 @@ export default {
         }
         return false
       }
-      if (this.date.date === undefined) {
+      if (this.startDate === undefined) {
         this.notice = {
           show: true,
           title: "错误",
@@ -210,7 +168,7 @@ export default {
         }
         return false
       }
-      if (this.time.time === undefined) {
+      if (this.startTime === undefined) {
         this.notice = {
           show: true,
           title: "错误",
@@ -226,8 +184,8 @@ export default {
       if (this.check() === false) return
       this.waiting = true
       this.startOrder({
-        from: this.from.address[0],
-        to: this.to.address[0],
+        from: this.from[0],
+        to: this.to[0],
         callback: this.callback
       })
     },
@@ -276,6 +234,22 @@ export default {
         }
         this.$router.replace(this.notice.to)
       }
+    },
+    clickFrom (event) {
+      if (event.target.className.toLowerCase() === "picker")
+        this.showFrom = false
+    },
+    clickTo (event) {
+      if (event.target.className.toLowerCase() === "picker")
+        this.showTo = false
+    },
+    clickDate () {
+      if (event.target.className.toLowerCase() === "picker")
+        this.showDate = false
+    },
+    clickTime () {
+      if (event.target.className.toLowerCase() === "picker")
+        this.showTime = false
     }
   }
 };
