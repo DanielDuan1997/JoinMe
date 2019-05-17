@@ -1,5 +1,5 @@
 import apiOrder from '@/api/order'
-import {getUser} from '@/auth'
+import {getUser} from '@/sessionStorage'
 
 const state = {}
 

@@ -1,13 +1,13 @@
 const storage = window.localStorage
 
 export function setLocal (payload) {
-  storage["rate"] = payload.rate
+  storage.setItem('rate', payload.rate)
 }
 
 export function getRate () {
-  return storage["rate"]
+  return storage.getItem('rate')
 }
 
-export function clearStorage () {
+export function clearLocal () {
   storage.clear()
 }

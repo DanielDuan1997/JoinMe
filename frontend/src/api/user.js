@@ -9,8 +9,6 @@ export default {
     let opts = {
       heads: {'content-type' : 'application/x-www-form-urlencoded'},
       method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
       body: formData
     }
     fetch(SERVER_ADDRESS + '/login', opts)
@@ -32,8 +30,6 @@ export default {
     let opts = {
       heads: {'content-type' : 'application/x-www-form-urlencoded'},
       method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
       body: formData
     }
     fetch(SERVER_ADDRESS + '/signup', opts)
@@ -46,18 +42,5 @@ export default {
       .catch(response => {
         callBack("无法连接服务器")
       })
-  },
-  logOut (user) {
-    let formData = new FormData()
-    formData.append('user', user)
-    let opts = {
-      heads: {'content-type' : 'application/x-www-form-urlencoded'},
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      body: formData
-    }
-    fetch(SERVER_ADDRESS + '/logout', opts)
-      .catch(response => console.log(response))
   }
 }

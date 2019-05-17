@@ -1,10 +1,10 @@
 import router from './router'
-import { getUser } from '@/auth'
+import {getToken} from '@/sessionStorage'
 
 const whiteList = ['/login', '/signup']
 
 router.beforeEach((to, from, next) => {
-  if (getUser()) {
+  if (getToken()) {
     if (to.path === '/login') {
       next('/')
     } else {

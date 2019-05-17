@@ -34,8 +34,8 @@
 
 <script>
 
-import {getUser} from '@/auth'
-import {getRate} from '@/storage'
+import {getUser} from '@/sessionStorage'
+import {getRate} from '@/localStorage'
 
 export default {
   name: 'individual',

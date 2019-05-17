@@ -91,9 +91,9 @@
 </template>
 
 <script>
-import {removeAll} from '@/auth'
 import {mapActions} from 'vuex'
-import {clearStorage} from "@/storage"
+import {clearSession} from '@/sessionStorage'
+import {clearLocal} from '@/localStorage'
 
 export default {
   name: 'InitiateOrder',
