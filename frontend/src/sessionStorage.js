@@ -1,18 +1,18 @@
-const store = window.sessionStorage
+const storage = window.sessionStorage
 
 export function setSession(payload) {
-  store.setItem('token', payload.token)
-  store.setItem('user', payload.user)
+  storage.setItem('token', payload.token)
+  storage.setItem('user', payload.user)
 }
 
 export function getToken() {
-  return store.getItem('token')
+  return storage.getItem('token')
 }
 
 export function getUser () {
-  return store.getItem('user')
+  return storage.getItem('user')
 }
 
 export function clearSession(payload) {
-  store.clear()
+  storage.clear()
 }

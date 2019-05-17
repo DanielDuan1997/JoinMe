@@ -6,7 +6,7 @@
       </mu-avatar>
     </mu-row>
     <mu-row justify-content="center" class="margin-top-10">
-      <div class="text-20">{{name}}</div>
+      <div class="text-20">{{nickname}}</div>
     </mu-row>
     <mu-row justify-content="center" class="margin-top-10">
       <div class="text-10">
@@ -34,14 +34,13 @@
 
 <script>
 
-import {getUser} from '@/sessionStorage'
-import {getRate} from '@/localStorage'
+import {getRate, getNickname} from '@/localStorage'
 
 export default {
   name: 'individual',
   data () {
     return {
-      name: getUser(),
+      nickname: getNickname(),
       rate: Number(getRate())
     }
   },

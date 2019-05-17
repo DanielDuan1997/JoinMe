@@ -11,34 +11,35 @@ cursor.execute("CREATE DATABASE JoinMe;")
 cursor.execute("use JoinMe;")
 
 sql = """CREATE TABLE `User` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` char(20) NOT NULL,
+  `nickname` char(20) NOT NULL,
   `password` char(32) NOT NULL,
   `total_rate` int(10) DEFAULT 10,
   `total_num` int(10) DEFAULT 1,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
 cursor.execute(sql)
 
 sql = """CREATE TABLE `Task` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `initiator` int(10) NOT NULL,
+  `initiator` char(20) NOT NULL,
   `num_connect` int(1) NOT NULL,
   `from` char(20) NOT NULL,
   `to` char(20) NOT NULL,
   `starttime` datetime NOT NULL,
+  `cancel` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  FOREIGN KEY(`initiator`) REFERENCES User(`id`)
+  FOREIGN KEY (`initiator`) REFERENCES User(`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
 cursor.execute(sql)
 
 sql = """CREATE TABLE `Relation` (
-  `user_id` int(10) NOT NULL,
+  `username` char(20) NOT NULL,
   `task_id` int(10) NOT NULL,
   `status` int(1) NOT NULL,
-  PRIMARY KEY(`user_id`, `task_id`),
-  FOREIGN KEY(`user_id`) REFERENCES User(`id`),
-  FOREIGN KEY(`task_id`) REFERENCES Task(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`username`, `task_id`),
+  FOREIGN KEY (`username`) REFERENCES User(`username`),
+  FOREIGN KEY (`task_id`) REFERENCES Task(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
 cursor.execute(sql)
 

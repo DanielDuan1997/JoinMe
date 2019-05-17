@@ -249,7 +249,8 @@ export default {
       this.notice.show = false
       if (this.notice.to !== undefined) {
         if (this.notice.to === '/login') {
-          clearStorage()
+          clearSession()
+          clearLocal()
         }
         this.$router.replace(this.notice.to)
       }

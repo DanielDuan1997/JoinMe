@@ -18,7 +18,7 @@ const actions = {
       response => {
         response = JSON.parse(response)
         setSession({'token': response.token, 'user': payload.user})
-        setLocal({'rate': response.rate})
+        setLocal({'rate': response.rate, 'nickname': response.nickname})
         payload.callback('success')
       },
       str => payload.callback(str)

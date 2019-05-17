@@ -26,8 +26,9 @@ def user_login():
         token = str(uuid.uuid4())
         redis = get_redis()
         redis.set(token+':user', user, ex=3600*24)
+        redis.set(token+':nickname', rec[1], ex=3600*24)
         redis.set(token+':last_login', datetime.now().strftime("%Y%m%d%H%M%S"), ex=3600*24)
-        response = make_response(jsonify({'token': token, 'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
+        response = make_response(jsonify({'token': token, 'nickname': rec[1], 'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
     cursor.close()
     return response
 
@@ -43,7 +44,7 @@ def user_signup():
         response = make_response("username exists", 401)
     else:
         try:
-            cursor.execute(f"INSERT INTO `User`(`username`, `password`) VALUES ('{user}', '{password}');")
+            cursor.execute(f"INSERT INTO `User`(`username`, `nickname`, `password`) VALUES ('{user}', '{user}', '{password}');")
             db.commit()
             response = make_response("success", 200)
         except Exception:

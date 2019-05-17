@@ -1,5 +1,5 @@
 import apiOrder from '@/api/order'
-import {getUser} from '@/sessionStorage'
+import {getUser, getToken} from '@/sessionStorage'
 
 const state = {}
 
@@ -10,6 +10,7 @@ const mutations = {}
 const actions = {
   startOrder ({commit}, payload) {
     apiOrder.start(
+      getToken(),
       getUser(),
       payload.from,
       payload.to,
