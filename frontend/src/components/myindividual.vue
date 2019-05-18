@@ -34,7 +34,7 @@
 
 <script>
 
-import {getRate, getNickname} from '@/localStorage'
+import {getRate, getNickname} from '@/static/localStorage'
 
 export default {
   name: 'individual',

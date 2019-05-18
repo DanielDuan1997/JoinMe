@@ -12,8 +12,8 @@
 
 <script>
 import {mapActions} from 'vuex'
-import {clearSession} from '@/sessionStorage'
-import {clearLocal} from '@/localStorage'
+import {clearSession} from '@/static/sessionStorage'
+import {clearLocal} from '@/static/localStorage'
 
 export default {
   name: 'InitiateOrder',

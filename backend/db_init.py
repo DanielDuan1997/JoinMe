@@ -45,4 +45,10 @@ cursor.execute(sql)
 
 print("Create DataBase `JoinMe` tables `User`, `Task`, `Relation`")
 
+sql = """INSERT INTO `User` (`username`, `nickname`, `password`) VALUES ('niabbf', 'niabbf', '6f7a3a8fe1dc6259b01b49775621fc46')"""
+cursor.execute(sql)
+db.commit()
+
+print("Create root user `niabbf`")
+
 db.close()

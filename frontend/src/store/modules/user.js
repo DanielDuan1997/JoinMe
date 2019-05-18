@@ -1,6 +1,6 @@
 import apiUser from '../../api/user'
-import {setSession, clearSession} from '@/sessionStorage'
-import {setLocal, clearLocal} from '@/localStorage'
+import {setSession, clearSession} from '@/static/sessionStorage'
+import {setLocal, clearLocal} from '@/static/localStorage'
 
 const state = {}
 

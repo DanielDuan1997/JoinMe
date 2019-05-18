@@ -1,6 +1,6 @@
 <template>
   <div class="full-screen">
-    <myheader left-icon=":iconfont icon-menu" title="JoinMe" leave></myheader>
+    <myheader left-icon=":iconfont icon-menu" title="JoinMe"></myheader>
 
     <div v-if="shift === 'car'">
       <mycarpool></mycarpool>

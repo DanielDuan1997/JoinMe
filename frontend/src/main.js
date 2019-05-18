@@ -18,7 +18,7 @@ import mywaiting from '@/components/mywaiting'
 import myselector from '@/components/myselector'
 import mydialog from '@/components/mydialog'
 
-import '@/permission'
+import '@/static/permission'
 
 theme.add('amber', {
   primary: '#ffc107',
