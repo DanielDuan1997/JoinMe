@@ -15,6 +15,8 @@ import mycarpool from '@/components/mycarpool'
 import myindividual from '@/components/myindividual'
 import mylist from '@/components/mylist'
 import mywaiting from '@/components/mywaiting'
+import myselector from '@/components/myselector'
+import mydialog from '@/components/mydialog'
 
 import '@/permission'
 
@@ -36,6 +38,8 @@ Vue.component('mycarpool', mycarpool)
 Vue.component('myindividual', myindividual)
 Vue.component('mylist', mylist)
 Vue.component('mywaiting', mywaiting)
+Vue.component('myselector', myselector)
+Vue.component('mydialog', mydialog)
 
 /* eslint-disable no-new */
 new Vue({
