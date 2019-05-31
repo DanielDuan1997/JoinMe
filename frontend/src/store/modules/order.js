@@ -17,6 +17,13 @@ const actions = {
       payload.datetime,
       payload.callback
     )
+  },
+  getSelfOrder ({commit}, payload) {
+    apiOrder.getSelf(
+      getToken(),
+      getUser(),
+      payload.callback
+    )
   }
 }
 

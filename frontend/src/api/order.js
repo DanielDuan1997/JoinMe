@@ -16,5 +16,18 @@ export default {
     fetch(SERVER_ADDRESS + '/startorder', opts)
       .then(response => callback(response.status))
       .catch(response => callback(response.status))
+  },
+  getSelf (token, user, callback) {
+    let formData = new FormData()
+    formData.append('token', token)
+    formData.append('user', user)
+    let opts = {
+      heads: {'content-type' : 'application/x-www-form-urlencoded'},
+      method: 'POST',
+      body: formData
+    }
+    fetch(SERVER_ADDRESS + '/getselforder', opts)
+      .then(response => callback(response))
+      .catch(response => callback(response))
   }
 }

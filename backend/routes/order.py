@@ -30,3 +30,19 @@ def start_order():
         response = make_response("Internal Error", 500)
     cursor.close()
     return response
+
+@order.route('/getselforder', methods=["POST"])
+@auth
+def get_self_order():
+    post_data = request.form.to_dict()
+    user = post_data.get("user")
+    cursor = db.cursor()
+    try:
+        sql = f"SELECT * FROM `User` LEFT JOIN (`Relation`, `Task`) ON (User.username=Relation.username AND Relation.task_id=Task.id) WHERE User.username='{user}';"
+        cursor.execute(sql)
+        rec = cursor.fetchall()
+        response = make_response(rec, 200)
+    except Exception:
+        response = make_response("Internal Error", 500)
+    cursor.close()
+    return response

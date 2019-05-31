@@ -4,6 +4,7 @@ import HomePage from '@/components/HomePage'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import InitiateOrder from '@/components/InitiateOrder'
+import History from '@/components/History'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ export default new VueRouter({
       path: '/initiateorder',
       name: 'initiateorder',
       component: InitiateOrder
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: History
     }
   ]
 })

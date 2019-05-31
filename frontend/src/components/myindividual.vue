@@ -23,7 +23,7 @@
       </div>
     </mu-row>
     <mu-list class="margin-top-20">
-      <mylist icon=":iconfont icon-history" content="历史清单" color="#2196f3"></mylist>
+      <mylist icon=":iconfont icon-history" content="历史清单" color="#2196f3" to="history"></mylist>
       <div class="divider"></div>
       <mylist icon=":iconfont icon-notice" content="系统消息" color="#00bcd4"></mylist>
       <div class="divider-large"></div>

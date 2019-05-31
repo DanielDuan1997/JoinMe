@@ -66,7 +66,7 @@ export default {
         this.notice = {
           open: true,
           title: "错误",
-          text: "连接服务器出错，请稍后重试",
+          text: "服务器出错，请稍后重试",
           closeColor: "warning",
           to: undefined
         }
