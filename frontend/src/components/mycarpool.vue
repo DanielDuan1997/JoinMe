@@ -4,7 +4,7 @@
     <mu-list class="margin-top-20">
       <mylist icon=":iconfont icon-start" content="发起拼单" color="#03a9f4" to="/initiateorder"></mylist>
       <div class="divider-large"></div>
-      <mylist icon=":iconfont icon-search" content="可加拼单" color="#673ab7"></mylist>
+      <mylist icon=":iconfont icon-search" content="可加拼单" color="#673ab7" to="/joinable"></mylist>
       <div class="divider"></div>
       <mylist icon=":iconfont icon-ongoing" content="进行中" color="#4caf50" to="/ongoing"></mylist>
       <div class="divider"></div>

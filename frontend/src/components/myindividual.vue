@@ -2,7 +2,15 @@
   <mu-container>
     <mu-row justify-content="center">
       <mu-avatar :size="80">
-        <img src="static/img/head.jpeg">
+        <div v-if="nickname == 'niabbf'">
+          <img src="static/img/niabbf_head.jpg">
+        </div>
+        <div v-else-if="nickname == 'shifan'">
+          <img src="static/img/shifan_head.jpg">
+        </div>
+        <div v-else>
+          <img src="static/img/no_head.jpg">
+        </div>
       </mu-avatar>
     </mu-row>
     <mu-row justify-content="center" class="margin-top-10">
@@ -43,12 +51,6 @@ export default {
       nickname: getNickname(),
       rate: Number(getRate())
     }
-  },
-  created: function() {
-
-  },
-  methods: {
-
   }
 };
 </script>

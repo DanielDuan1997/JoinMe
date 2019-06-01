@@ -6,6 +6,7 @@ import SignUp from '@/components/SignUp'
 import InitiateOrder from '@/components/InitiateOrder'
 import History from '@/components/History'
 import Ongoing from '@/components/Ongoing'
+import Joinable from '@/components/Joinable'
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,11 @@ export default new VueRouter({
       path: '/ongoing',
       name: 'ongoing',
       component: Ongoing
+    },
+    {
+      path: '/joinable',
+      name: 'joinable',
+      component: Joinable
     }
   ]
 })

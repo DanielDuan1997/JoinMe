@@ -7,13 +7,13 @@ export function setSession (payload) {
 
 
 //-------------------------- need to delete ------------------------
-export function setToken (token) {
-  storage.setItem('token', token)
-}
+// export function setToken (token) {
+//   storage.setItem('token', token)
+// }
 
-export function setUser (user) {
-  storage.setItem('user', user)
-}
+// export function setUser (user) {
+//   storage.setItem('user', user)
+// }
 //-------------------------- need to delete ------------------------
 
 export function getToken () {

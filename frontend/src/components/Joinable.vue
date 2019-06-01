@@ -30,11 +30,9 @@
             <mu-col span="3"><div class="medium-size">出发时间</div></mu-col>
             <mu-col span="7"><div class="medium-size">{{myStartTime(order.starttime)}}</div></mu-col>
           </mu-row>
-          <div v-if="order.initiator != user">
-            <mu-flex justify-content="center" align-items="center" class="button">
-              <mu-button round color="warning" @click="quitOrder({task_id: order.task_id, cbSuccess: cbSuccess1, cbFail: cbFail})">退出</mu-button>
-            </mu-flex>
-          </div>
+          <mu-flex justify-content="center" align-items="center" class="button">
+            <mu-button round color="primary" @click="joinOrder({task_id: order.task_id, cbSuccess: cbSuccess1, cbFail: cbFail})">加入</mu-button>
+          </mu-flex>
         </mu-paper>
       </div>
     </div>
@@ -47,16 +45,14 @@
 
 <script>
 import {mapActions} from 'vuex'
-import {getUser} from '@/static/sessionStorage'
 import {clearSession} from '@/static/sessionStorage'
 import {clearLocal} from '@/static/localStorage'
 
 export default {
-  name: 'Ongoing',
+  name: 'Joinable',
   data () {
     return {
       orders: [],
-      user: getUser(),
       notice: {
         open: false,
         title: "",
@@ -67,10 +63,10 @@ export default {
     }
   },
   created: function () {
-    this.getOngoingOrder({cbSuccess: this.cbSuccess, cbFail: this.cbFail})
+    this.getJoinableOrder({cbSuccess: this.cbSuccess, cbFail: this.cbFail})
   },
   methods: {
-    ...mapActions('order', ['getOngoingOrder', 'quitOrder']),
+    ...mapActions('order', ['getJoinableOrder', 'joinOrder']),
     cbSuccess (data) {
       this.orders = data
     },
@@ -78,13 +74,12 @@ export default {
       this.notice = {
         open: true,
         title: "成功",
-        text: "已成功退出此次拼车",
+        text: "已加入此次拼车",
         closeColor: "primary",
         to: "/"
       }
     },
     cbFail (status) {
-      console.log(status)
       if (status == 401) {
         this.notice = {
           open: true,
@@ -107,7 +102,7 @@ export default {
           title: "错误",
           text: "页面无法找到",
           closeColor: "warning",
-          to: '/'
+          to: undefined
         }
       } else {
         this.notice = {
@@ -154,9 +149,6 @@ export default {
   top: 0;
   bottom: 0;
 }
-.no-data {
-  margin-top: 10px;
-}
 .list {
   margin-bottom: 10px;
 }
@@ -173,5 +165,8 @@ export default {
 .button {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.no-data {
+  margin-top: 10px;
 }
 </style>

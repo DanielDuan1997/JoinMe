@@ -34,6 +34,32 @@ const actions = {
       payload.cbSuccess,
       payload.cbFail
     )
+  },
+  quitOrder ({commit}, payload) {
+    apiOrder.quit(
+      getToken(),
+      getUser(),
+      payload.task_id,
+      payload.cbSuccess,
+      payload.cbFail
+    )
+  },
+  getJoinableOrder ({commit}, payload) {
+    apiOrder.getJoinable(
+      getToken(),
+      getUser(),
+      payload.cbSuccess,
+      payload.cbFail
+    )
+  },
+  joinOrder ({commit}, payload) {
+    apiOrder.join(
+      getToken(),
+      getUser(),
+      payload.task_id,
+      payload.cbSuccess,
+      payload.cbFail
+    )
   }
 }
 

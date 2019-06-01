@@ -1,9 +1,14 @@
 <template>
   <div class="full-screen">
     <myheader left-icon=":iconfont icon-left-arrow" title="JoinMe" go-back></myheader>
-    <div v-for="order in orders">
-      <myorderlist :from="order.from" :to="order.to" :initiator="order.initiator" :start-time="order.starttime" :location="order.location">
-      </myorderlist>
+    <div v-if="orders.length">
+      <div v-for="order in orders">
+        <myorderlist :from="order.from" :to="order.to" :initiator="order.initiator" :start-time="order.starttime" :location="order.location">
+        </myorderlist>
+      </div>
+    </div>
+    <div v-else class="no-data">
+      暂无更多数据
     </div>
     <mydialog :open.sync="notice.open" :title="notice.title" :text="notice.text" :close-color="notice.closeColor" :close-action="closeDialog"></mydialog>
   </div>
@@ -18,7 +23,7 @@ export default {
   name: 'History',
   data () {
     return {
-      orders: undefined,
+      orders: [],
       notice: {
         open: false,
         title: "",
@@ -92,5 +97,8 @@ export default {
   position: 100%;
   top: 0;
   bottom: 0;
+}
+.no-data {
+  margin-top: 10px;
 }
 </style>

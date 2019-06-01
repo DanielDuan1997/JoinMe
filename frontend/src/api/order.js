@@ -40,5 +40,46 @@ export default {
         else
           cbFail(error.response.status)
       })
+  },
+  quit (token, user, task_id, cbSuccess, cbFail) {
+    axios.post(SERVER_ADDRESS + '/quit', {
+      token: token,
+      user: user,
+      task_id: task_id
+    })
+      .then(response => cbSuccess(response.data))
+      .catch(error => {
+        if (error.response === undefined)
+          cbFail(404)
+        else
+          cbFail(error.response.status)
+      })
+  },
+  getJoinable (token, user, cbSuccess, cbFail) {
+    axios.post(SERVER_ADDRESS + '/getjoinable', {
+      token: token,
+      user: user
+    })
+      .then(response => cbSuccess(response.data))
+      .catch(error => {
+        if (error.response === undefined)
+          cbFail(404)
+        else
+          cbFail(error.response.status)
+      })
+  },
+  join (token, user, task_id, cbSuccess, cbFail) {
+    axios.post(SERVER_ADDRESS + '/join', {
+      token: token,
+      user: user,
+      task_id: task_id
+    })
+      .then(response => cbSuccess())
+      .catch(error => {
+        if (error.response === undefined)
+          cbFail(404)
+        else
+          cbFail(error.response.status)
+      })
   }
 }
