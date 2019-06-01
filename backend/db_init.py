@@ -27,6 +27,7 @@ sql = """CREATE TABLE `Task` (
   `from` char(20) NOT NULL,
   `to` char(20) NOT NULL,
   `starttime` datetime NOT NULL,
+  `location` char(50) NOT NULL,
   `cancel` tinyint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`initiator`) REFERENCES User(`username`)

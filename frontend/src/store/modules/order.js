@@ -15,6 +15,7 @@ const actions = {
       payload.from,
       payload.to,
       payload.datetime,
+      payload.location,
       payload.callback
     )
   },
@@ -22,7 +23,8 @@ const actions = {
     apiOrder.getSelf(
       getToken(),
       getUser(),
-      payload.callback
+      payload.cbSuccess,
+      payload.cbFail
     )
   }
 }

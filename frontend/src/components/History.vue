@@ -1,19 +1,24 @@
 <template>
   <div class="full-screen">
     <myheader left-icon=":iconfont icon-left-arrow" title="JoinMe" go-back></myheader>
-    <div>{{order}}</div>
+    <div v-for="order in orders">
+      <myorderlist :from="order.from" :to="order.to" :initiator="order.initiator" :start-time="order.starttime" :location="order.location">
+      </myorderlist>
+    </div>
     <mydialog :open.sync="notice.open" :title="notice.title" :text="notice.text" :close-color="notice.closeColor" :close-action="closeDialog"></mydialog>
   </div>
 </template>
 
 <script>
 import {mapActions} from 'vuex'
+import {clearSession} from '@/static/sessionStorage'
+import {clearLocal} from '@/static/localStorage'
 
 export default {
   name: 'History',
   data () {
     return {
-      order: undefined,
+      orders: undefined,
       notice: {
         open: false,
         title: "",
@@ -24,14 +29,15 @@ export default {
     }
   },
   created: function () {
-    this.getSelfOrder({callback: this.callback})
+    this.getSelfOrder({cbSuccess: this.cbSuccess, cbFail: this.cbFail})
   },
   methods: {
     ...mapActions('order', ['getSelfOrder']),
-    callback (response) {
-      if (response.status == 200) {
-        this.order = response.text()
-      } else if (response.status == 401) {
+    cbSuccess (data) {
+      this.orders = data
+    },
+    cbFail (status) {
+      if (status == 401) {
         this.notice = {
           open: true,
           title: "错误",
@@ -39,7 +45,7 @@ export default {
           closeColor: "warning",
           to: "/login"
         }
-      } else if (response.status === 500) {
+      } else if (status === 500) {
         this.notice = {
           open: true,
           title: "错误",
@@ -47,7 +53,7 @@ export default {
           closeColor: "warning",
           to: undefined
         }
-      } else if (response.status === 404) {
+      } else if (status === 404) {
         this.notice = {
           open: true,
           title: "错误",

@@ -1,33 +1,31 @@
 const SERVER_ADDRESS = 'http://0.0.0.0:5000'
 
+import axios from 'axios'
+
 export default {
-  start (token, user, from, to, datetime, callback) {
-    let formData = new FormData()
-    formData.append('token', token)
-    formData.append('user', user)
-    formData.append('from', from)
-    formData.append('to', to)
-    formData.append('datetime', datetime)
-    let opts = {
-      heads: {'content-type' : 'application/x-www-form-urlencoded'},
-      method: 'POST',
-      body: formData
-    }
-    fetch(SERVER_ADDRESS + '/startorder', opts)
+  start (token, user, from, to, datetime, location, callback) {
+    axios.post(SERVER_ADDRESS + '/startorder', {
+      token: token,
+      user: user,
+      from: from,
+      to: to,
+      datetime: datetime,
+      location: location
+    })
       .then(response => callback(response.status))
       .catch(response => callback(response.status))
   },
-  getSelf (token, user, callback) {
-    let formData = new FormData()
-    formData.append('token', token)
-    formData.append('user', user)
-    let opts = {
-      heads: {'content-type' : 'application/x-www-form-urlencoded'},
-      method: 'POST',
-      body: formData
-    }
-    fetch(SERVER_ADDRESS + '/getselforder', opts)
-      .then(response => callback(response))
-      .catch(response => callback(response))
+  getSelf (token, user, cbSuccess, cbFail) {
+    axios.post(SERVER_ADDRESS + '/getselforder', {
+        token: token,
+        user: user
+    })
+      .then(response => {
+        if (response.status == 200)
+          cbSuccess(response.data)
+        else
+          cbFail(response.status)
+      })
+      .catch(response => {console.log('error');cbFail(response)})
   }
 }

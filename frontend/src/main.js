@@ -17,6 +17,7 @@ import mylist from '@/components/mylist'
 import mywaiting from '@/components/mywaiting'
 import myselector from '@/components/myselector'
 import mydialog from '@/components/mydialog'
+import myorderlist from '@/components/myorderlist'
 
 import '@/static/permission'
 
@@ -40,6 +41,7 @@ Vue.component('mylist', mylist)
 Vue.component('mywaiting', mywaiting)
 Vue.component('myselector', myselector)
 Vue.component('mydialog', mydialog)
+Vue.component('myorderlist', myorderlist)
 
 /* eslint-disable no-new */
 new Vue({

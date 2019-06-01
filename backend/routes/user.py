@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from datetime import datetime
 import uuid
+import json
 
 from common.redis_connector import get_redis
 from common.mysql_connector import db
@@ -9,9 +10,9 @@ user = Blueprint("user", __name__)
 
 @user.route('/login', methods=["POST"])
 def user_login():
-    post_data = request.form.to_dict()
-    user = post_data.get("user")
-    password = post_data.get("password")
+    data = json.loads(request.data.decode('utf-8'))
+    user = data.get("user")
+    password = data.get("password")
     if user is None:
         return make_response("user not exists", 401)
     cursor = db.cursor()
@@ -34,9 +35,9 @@ def user_login():
 
 @user.route('/signup', methods=["POST"])
 def user_signup():
-    post_data = request.form.to_dict()
-    user = post_data.get("user")
-    password = post_data.get("password")
+    data = json.loads(request.data.decode('utf-8'))
+    user = data.get("user")
+    password = data.get("password")
     cursor = db.cursor()
     cursor.execute(f"SELECT * FROM `User` WHERE username = '{user}';")
     rec = cursor.fetchone()

@@ -57,6 +57,20 @@
             </mu-col>
           </mu-row>
         </mu-list-item>
+        <mu-divider></mu-divider>
+        <mu-list-item>
+          <mu-row class="full-width">
+            <mu-col span="2">
+              <mu-icon value=":iconfont icon-point" size="20" color="purple"></mu-icon>
+            </mu-col>
+            <mu-col span="4" class="title">
+              出发地点
+            </mu-col>
+            <mu-col span="6" class="text">
+              <input v-model="myLocation" placeholder="输入上车点" class="location">
+            </mu-col>
+          </mu-row>
+        </mu-list-item>
       </mu-list>
     </mu-paper>
     <div style="margin-top: 2%">
@@ -90,6 +104,7 @@ export default {
     to: Array,
     startDate: String,
     startTime: String,
+    location: String,
     submit: Function
   },
   data () {
@@ -103,6 +118,7 @@ export default {
       myTo: this.to,
       myStartDate: undefined,
       myStartTime: undefined,
+      myLocation: '',
       showFrom: false,
       showTo: false,
       showDate: false,
@@ -146,6 +162,9 @@ export default {
     },
     myTime (val) {
       this.$emit('update:startTime', val)
+    },
+    myLocation (val) {
+      this.$emit('update:location', val)
     }
   },
   methods: {
@@ -177,6 +196,15 @@ export default {
           open: true,
           title: "错误",
           text: "未选择出发时间",
+          closeColor: "warning"
+        }
+        return false
+      }
+      if (this.myLocation === '') {
+        this.notice = {
+          open: true,
+          title: "错误",
+          text: "未输入出发地点",
           closeColor: "warning"
         }
         return false
@@ -244,6 +272,20 @@ export default {
 .text {
   text-align: center;
   font-size: 17px;
+}
+.location {
+  height: 30%;
+  width: 80%;
+  padding: 0;
+  margin: 0;
+  font-size: 17px;
+  text-align: center;
+}
+input::-ms-input-placeholder {
+  text-align: center;
+}
+input::-webkit-input-placeholder {
+  text-align: center;
 }
 .picker {
   background: rgba(157, 157, 157, 0.5);

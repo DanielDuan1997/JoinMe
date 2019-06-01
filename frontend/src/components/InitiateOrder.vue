@@ -3,7 +3,7 @@
     <myheader left-icon=":iconfont icon-left-arrow" title="开启新的旅程" go-back></myheader>
     <mu-container>
       <mylogo></mylogo>
-      <myselector :from.sync="from" :to.sync="to" :start-date.sync="startDate" :start-time.sync="startTime" :submit="submit"></myselector>
+      <myselector :from.sync="from" :to.sync="to" :start-date.sync="startDate" :start-time.sync="startTime" :location.sync="location" :submit="submit"></myselector>
       <mywaiting v-if="waiting"></mywaiting>
       <mydialog :open.sync="notice.open" :title="notice.title" :text="notice.text" :close-color="notice.closeColor" :close-action="closeDialog"></mydialog>
     </mu-container>
@@ -23,6 +23,7 @@ export default {
       to: ['邯郸'],
       startDate: '',
       startTime: '',
+      location: '',
       waiting: false,
       notice: {
         open: false,
@@ -41,6 +42,7 @@ export default {
         from: this.from[0],
         to: this.to[0],
         datetime: this.startDate + ' ' + this.startTime,
+        location: this.location,
         callback: this.callback
       })
     },
