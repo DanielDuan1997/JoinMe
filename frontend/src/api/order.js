@@ -20,12 +20,7 @@ export default {
         token: token,
         user: user
     })
-      .then(response => {
-        if (response.status == 200)
-          cbSuccess(response.data)
-        else
-          cbFail(response.status)
-      })
-      .catch(response => {console.log('error');cbFail(response)})
+      .then(response => cbSuccess(response.data))
+      .catch(response => cbFail(response))
   }
 }

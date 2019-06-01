@@ -40,7 +40,7 @@ def get_self_order():
     user = data.get("user")
     cursor = db.cursor()
     try:
-        sql = f"SELECT * FROM `User` JOIN (`Relation`, `Task`) ON (User.username=Relation.username AND Relation.task_id=Task.id) WHERE User.username='{user}' ORDER BY Task.starttime;"
+        sql = f"SELECT * FROM `User` JOIN (`Relation`, `Task`) ON (User.username=Relation.username AND Relation.task_id=Task.id) WHERE User.username='{user}' ORDER BY Task.starttime DESC;"
         cursor.execute(sql)
         rec = cursor.fetchall()
         tasks = []
@@ -49,7 +49,7 @@ def get_self_order():
             task["initiator"] = each[9]
             task["from"] = each[11]
             task["to"] = each[12]
-            task["starttime"] = each[13].strftime("%Y%m%d %H:%M")
+            task["starttime"] = each[13].strftime("%Y/%m/%d %H:%M")
             task["location"] = each[14]
             tasks.append(task)
         response = make_response(json.dumps(tasks), 200)
