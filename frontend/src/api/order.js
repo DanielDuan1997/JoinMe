@@ -13,14 +13,32 @@ export default {
       location: location
     })
       .then(response => callback(response.status))
-      .catch(response => callback(response.status))
+      .catch(error => callback(error.response.status))
   },
   getSelf (token, user, cbSuccess, cbFail) {
     axios.post(SERVER_ADDRESS + '/getselforder', {
-        token: token,
-        user: user
+      token: token,
+      user: user
     })
       .then(response => cbSuccess(response.data))
-      .catch(response => cbFail(response))
+      .catch(error => {
+        if (error.response === undefined)
+          cbFail(404)
+        else
+          cbFail(error.response.status)
+      })
+  },
+  getOngoing (token, user, cbSuccess, cbFail) {
+    axios.post(SERVER_ADDRESS + '/getongoing', {
+      token: token,
+      user: user
+    })
+      .then(response => cbSuccess(response.data))
+      .catch(error => {
+        if (error.response === undefined)
+          cbFail(404)
+        else
+          cbFail(error.response.status)
+      })
   }
 }

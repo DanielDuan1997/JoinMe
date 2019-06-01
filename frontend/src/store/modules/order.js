@@ -26,6 +26,14 @@ const actions = {
       payload.cbSuccess,
       payload.cbFail
     )
+  },
+  getOngoingOrder ({commit}, payload) {
+    apiOrder.getOngoing(
+      getToken(),
+      getUser(),
+      payload.cbSuccess,
+      payload.cbFail
+    )
   }
 }
 

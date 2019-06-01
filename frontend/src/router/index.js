@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import InitiateOrder from '@/components/InitiateOrder'
 import History from '@/components/History'
+import Ongoing from '@/components/Ongoing'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ export default new VueRouter({
       path: '/history',
       name: 'history',
       component: History
+    },
+    {
+      path: '/ongoing',
+      name: 'ongoing',
+      component: Ongoing
     }
   ]
 })

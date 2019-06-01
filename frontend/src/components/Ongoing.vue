@@ -15,7 +15,7 @@ import {clearSession} from '@/static/sessionStorage'
 import {clearLocal} from '@/static/localStorage'
 
 export default {
-  name: 'History',
+  name: 'Ongoing',
   data () {
     return {
       orders: undefined,
@@ -29,14 +29,15 @@ export default {
     }
   },
   created: function () {
-    this.getSelfOrder({cbSuccess: this.cbSuccess, cbFail: this.cbFail})
+    this.getOngoingOrder({cbSuccess: this.cbSuccess, cbFail: this.cbFail})
   },
   methods: {
-    ...mapActions('order', ['getSelfOrder']),
+    ...mapActions('order', ['getOngoingOrder']),
     cbSuccess (data) {
       this.orders = data
     },
     cbFail (status) {
+      console.log(status)
       if (status == 401) {
         this.notice = {
           open: true,

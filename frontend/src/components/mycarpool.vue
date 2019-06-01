@@ -6,7 +6,7 @@
       <div class="divider-large"></div>
       <mylist icon=":iconfont icon-search" content="可加拼单" color="#673ab7"></mylist>
       <div class="divider"></div>
-      <mylist icon=":iconfont icon-ongoing" content="进行中" color="#4caf50"></mylist>
+      <mylist icon=":iconfont icon-ongoing" content="进行中" color="#4caf50" to="/ongoing"></mylist>
       <div class="divider"></div>
       <mylist icon=":iconfont icon-need-comment" content="待评价" color="#ff5722"></mylist>
     </mu-list>

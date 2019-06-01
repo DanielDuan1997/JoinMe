@@ -36,7 +36,7 @@ def start_order():
 @order.route('/getselforder', methods=["POST"])
 @auth
 def get_self_order():
-    data = json.loads(request.data.decode('utf-8'))
+    data = json.loads(request.data.decode("utf-8"))
     user = data.get("user")
     cursor = db.cursor()
     try:
@@ -58,3 +58,30 @@ def get_self_order():
         print(e)
     cursor.close()
     return response
+
+@order.route('/getongoing', methods=["POST"])
+@auth
+def get_ongoing_order():
+    data = json.loads(request.data.decode("utf-8"))
+    user = data.get("user")
+    cursor = db.cursor()
+    try:
+        sql = f"SELECT * FROM `User` JOIN (`Relation`, `Task`) ON (User.username=Relation.username AND Relation.task_id=Task.id) WHERE User.username='{user}' AND Task.starttime > NOW();"
+        cursor.execute(sql)
+        rec = cursor.fetchall()
+        tasks = []
+        for each in rec:
+            task = dict()
+            task["initiator"] = each[9]
+            task["from"] = each[11]
+            task["to"] = each[12]
+            task["starttime"] = each[13].strftime("%Y/%m/%d %H:%M")
+            task["location"] = each[14]
+            tasks.append(task)
+        response = make_response(json.dumps(tasks), 200)
+    except Exception as e:
+        response = make_response("Internal Error", 500)
+        print(e)
+    cursor.close()
+    return response
+
