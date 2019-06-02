@@ -28,7 +28,7 @@ export default {
   methods: {
     ...mapActions('user', ['logOut']),
     toLogin () {
-      this.$router.replace('/toLogin')
+      this.$router.replace('/login')
     },
     leftClick () {
       if (this.goBack) {
