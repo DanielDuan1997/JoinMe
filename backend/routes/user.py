@@ -26,9 +26,8 @@ def user_login():
     else:
         token = str(uuid.uuid4())
         redis = get_redis()
-        redis.set(token+':user', user, ex=3600*24)
-        redis.set(token+':nickname', rec[1], ex=3600*24)
-        redis.set(token+':last_login', datetime.now().strftime("%Y%m%d%H%M%S"), ex=3600*24)
+        redis.set('[JoinMe]'+token+':user', user, ex=3600*24)
+        redis.set('[JoinMe]'+token+':last_login', datetime.now().strftime("%Y%m%d%H%M%S"), ex=3600*24)
         response = make_response(jsonify({'token': token, 'nickname': rec[1], 'rate': int(float(rec[3])/rec[4] + 0.5)}), 200)
     cursor.close()
     return response
